@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../data/login.service';
 
 @Component({
@@ -13,8 +13,8 @@ export class LoginComponent implements OnInit {
   
   constructor(private fb:FormBuilder, private loginService:LoginService) {
     this.loginForm=this.fb.group({
-      'username':'',
-      'password':''
+      'username':['',Validators.compose([Validators.required,this.usernameValidator])],
+      'password':['',Validators.compose([Validators.required,this.passwordValidator])]
     });
   }
 
@@ -26,6 +26,18 @@ export class LoginComponent implements OnInit {
     },error=>{
       
     });
+  }
+
+  usernameValidator(control:FormControl):{[s:string]:boolean}{
+    if(!control.value.match(/^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/)){
+      return {invalidUsername:true};
+    }
+  }
+
+  passwordValidator(control:FormControl):{[s:string]:boolean}{
+    if(!control.value.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)){
+      return {invalidPassword:true};
+    }
   }
 
   ngOnInit(): void {
