@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-fa-input',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./fa-input.component.css']
 })
 export class FaInputComponent implements OnInit {
+
+  @Input() icon: string;
 
   constructor() { }
 
