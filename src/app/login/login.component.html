@@ -1,1 +1,9 @@
-<p>login works!</p>
+<form [formGroup]="loginForm" (ngSubmit)="submitUser(loginForm)">
+    <app-fa-input icon="person-circle">
+        <input appInputRef type="text" formControlName="username" placeholder="Usuario" >
+    </app-fa-input>
+    <app-fa-input icon="file-earmark-lock2">
+      <input appInputRef type="password" formControlName="password" placeholder="Contraseña" >
+    </app-fa-input>
+    <button type="submit"  class="rounded-pill pr-5 pl-5">LOGIN</button>
+</form>
