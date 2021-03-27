@@ -15,3 +15,7 @@
     </div><br>
     <button type="submit"  class="rounded-pill pr-5 pl-5">LOGIN</button>
 </form>
+<div class="d-flex justify-content-center" *ngIf="submitResult|async as text">
+    <span *ngIf="text==='incorrect'">*Incorrect username/password</span>
+    <span *ngIf="text==='error'">*Sin conexion</span>
+</div>

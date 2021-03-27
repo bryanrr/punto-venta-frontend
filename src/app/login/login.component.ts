@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   loginForm:FormGroup;
   usernameError:BehaviorSubject<string>=new BehaviorSubject('');
   passwordError:BehaviorSubject<string>=new BehaviorSubject('');
+  submitResult:BehaviorSubject<string>=new BehaviorSubject('');
   
   constructor(private fb:FormBuilder, private loginService:LoginService) {
     this.loginForm=this.fb.group({
@@ -43,13 +44,26 @@ export class LoginComponent implements OnInit {
       validPassword=true;
     }
 
-    let resultObservable;
-    resultObservable=this.loginService.authenticate(values.get('username').value,values.get('password').value);
-    resultObservable.subscribe(data=>{
-      
-    },error=>{
-      
-    });
+    if(validUsername && validPassword){
+      let resultObservable;
+      resultObservable=this.loginService.authenticate(values.get('username').value,values.get('password').value);
+      resultObservable.subscribe(data=>{
+
+      },error=>{
+        if(error.status=="401"){
+          this.submitResult.next('incorrect');  
+          values.controls['username'].setValue('');
+          values.controls['password'].setValue('');
+        }else{
+          this.submitResult.next('error');
+          values.controls['username'].setValue('');
+          values.controls['password'].setValue('');
+        }
+      });
+    }else{
+      values.controls['username'].setValue('');
+      values.controls['password'].setValue('');
+    }
   }
 
   usernameValidator(control:FormControl):{[s:string]:boolean}{
@@ -62,6 +76,12 @@ export class LoginComponent implements OnInit {
     if(!control.value.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/)){
       return {invalidPassword:true};
     }
+  }
+
+  ngOnDestroy() {
+    this.usernameError.unsubscribe();
+    this.passwordError.unsubscribe();
+    this.submitResult.unsubscribe();
   }
 
   ngOnInit(): void {
