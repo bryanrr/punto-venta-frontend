@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { DataModule } from "./data/data.module";
 import { LoginComponent } from './login/login.component';
 import { FaInputComponent } from './fa-input/fa-input.component';
+import { InputRefDirective } from './directives/input-ref.directive';
+import { SvgRefDirective } from './directives/svg-ref.directive';
 
 
 
@@ -13,7 +15,9 @@ import { FaInputComponent } from './fa-input/fa-input.component';
   declarations: [
     AppComponent,
     LoginComponent,
-    FaInputComponent
+    FaInputComponent,
+    InputRefDirective,
+    SvgRefDirective
   ],
   imports: [
     BrowserModule,
