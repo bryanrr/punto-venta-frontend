@@ -5,13 +5,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DataModule } from "./data/data.module";
 import { LoginComponent } from './login/login.component';
+import { FaInputComponent } from './fa-input/fa-input.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    FaInputComponent
   ],
   imports: [
     BrowserModule,
