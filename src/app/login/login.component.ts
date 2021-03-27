@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
 import { LoginService } from '../data/login.service';
 
 @Component({
@@ -10,6 +11,8 @@ import { LoginService } from '../data/login.service';
 export class LoginComponent implements OnInit {
 
   loginForm:FormGroup;
+  usernameError:BehaviorSubject<string>=new BehaviorSubject('');
+  passwordError:BehaviorSubject<string>=new BehaviorSubject('');
   
   constructor(private fb:FormBuilder, private loginService:LoginService) {
     this.loginForm=this.fb.group({
@@ -19,6 +22,27 @@ export class LoginComponent implements OnInit {
   }
 
   submitUser(values):void{
+    let validUsername=false;
+    let validPassword=false;
+
+    if(values.controls['username'].hasError('required')){
+      this.usernameError.next('required');
+    }else if(values.controls['username'].hasError('invalidUsername')){
+      this.usernameError.next('invalidUsername');
+    }else{
+      this.usernameError.next('');
+      validUsername=true;
+    }
+
+    if(values.controls['password'].hasError('required')){
+      this.passwordError.next('required');
+    }else if(values.controls['password'].hasError('invalidPassword')){
+      this.passwordError.next('invalidPassword');
+    }else{
+      this.passwordError.next('');
+      validPassword=true;
+    }
+
     let resultObservable;
     resultObservable=this.loginService.authenticate(values.get('username').value,values.get('password').value);
     resultObservable.subscribe(data=>{
