@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { LoginService } from '../data/login.service';
 
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
   passwordError:BehaviorSubject<string>=new BehaviorSubject('');
   submitResult:BehaviorSubject<string>=new BehaviorSubject('');
   
-  constructor(private fb:FormBuilder, private loginService:LoginService) {
+  constructor(private fb:FormBuilder, private loginService:LoginService,private router:Router) {
     this.loginForm=this.fb.group({
       'username':['',Validators.compose([Validators.required,this.usernameValidator])],
       'password':['',Validators.compose([Validators.required,this.passwordValidator])]
@@ -48,7 +49,7 @@ export class LoginComponent implements OnInit {
       let resultObservable;
       resultObservable=this.loginService.authenticate(values.get('username').value,values.get('password').value);
       resultObservable.subscribe(data=>{
-
+        this.router.navigate(['/main']);
       },error=>{
         if(error.status=="401"){
           this.submitResult.next('incorrect');  
