@@ -61,6 +61,7 @@ export class LoginComponent implements OnInit {
         }
       });
     }else{
+      this.submitResult.next('');
       values.controls['username'].setValue('');
       values.controls['password'].setValue('');
     }
