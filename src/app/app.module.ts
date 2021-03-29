@@ -10,6 +10,8 @@ import { FaInputComponent } from './fa-input/fa-input.component';
 import { InputRefDirective } from './directives/input-ref.directive';
 import { SvgRefDirective } from './directives/svg-ref.directive';
 import { IconsModule } from "./icons/icons.module";
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -26,7 +28,9 @@ import { IconsModule } from "./icons/icons.module";
     AppRoutingModule,
     DataModule,
     NgbModule,
-    IconsModule
+    IconsModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
