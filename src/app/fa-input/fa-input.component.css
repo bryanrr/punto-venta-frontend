@@ -1,0 +1,38 @@
+:host {
+    border: 2px solid rgb(187, 187, 187);
+    border-radius: 12px;
+    height: 46px;
+    display: block;
+    background-color: white;
+  }
+
+:host ::ng-deep input {
+    border: none;
+    outline: none;
+    height: 40px;
+    border-radius: 12px;
+    display: inline-block;
+    color: midnightblue;
+}
+
+  
+
+  :host(.focus) {
+    border: 2px solid midnightblue;
+    border-radius: 12px;
+    height: 46px;
+    background-color: white;
+  }
+
+  bi{
+    display: inline-block;
+    font-size: 1.5rem;
+    color: rgb(187, 187, 187);
+  }
+
+  bi.focus{
+    display: inline-block;
+    font-size: 1.5rem;
+    color: midnightblue;
+  }
+   

@@ -1,0 +1,32 @@
+<div class="container-fluid" style="height: 600px;">
+  <div class="row justify-content-center align-items-center" style="height: 200px">
+    <div class="col-auto">
+      <img src="/assets/img/autoservicio.png" alt="image">
+    </div>
+  </div>
+  <div class="row justify-content-center align-items-center" style="height: 200px;">
+        <form [formGroup]="loginForm" (ngSubmit)="submitUser(loginForm)">
+            <app-fa-input icon="person-circle">
+                <input appInputRef type="text" formControlName="username" placeholder="Usuario" >
+            </app-fa-input>
+            <div class="d-flex justify-content-center" *ngIf="usernameError|async as text">
+                <span *ngIf="text==='required'">*Campo requerido</span>
+                <span *ngIf="text==='invalidUsername'">*Caracteres invalidos</span>
+            </div><br>
+            <app-fa-input icon="file-earmark-lock2">
+              <input appInputRef type="password" formControlName="password" placeholder="Contraseña" >
+            </app-fa-input>
+            <div class="d-flex justify-content-center" *ngIf="passwordError|async as text">
+                <span *ngIf="text==='required'">*Campo requerido</span>
+                <span *ngIf="text==='invalidPassword'">*Caracteres invalidos</span>
+            </div><br>
+            <div class="d-flex justify-content-center">
+                <button type="submit"  class="rounded-pill pr-5 pl-5">LOGIN</button>
+            </div>
+        </form>
+    </div>
+    <div class="d-flex justify-content-center" *ngIf="submitResult|async as text">
+        <span *ngIf="text==='incorrect'">*Incorrect username/password</span>
+        <span *ngIf="text==='error'">*Sin conexion</span>
+    </div>
+</div>

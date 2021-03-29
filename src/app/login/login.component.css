@@ -1,0 +1,15 @@
+button{
+    color:white;
+    background-color:rgb(165, 164, 164);
+    font-size : 20px;
+}
+
+button:hover{
+    color:white;
+    background-color:midnightblue;
+    font-size : 20px;
+}
+
+span{
+    color: red;
+}
