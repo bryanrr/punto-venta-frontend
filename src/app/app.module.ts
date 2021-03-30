@@ -13,6 +13,7 @@ import { IconsModule } from "./icons/icons.module";
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MainComponent } from './main/main.component';
+import { TokenInputComponent } from './token-input/token-input.component';
 
 
 
@@ -23,7 +24,8 @@ import { MainComponent } from './main/main.component';
     FaInputComponent,
     InputRefDirective,
     SvgRefDirective,
-    MainComponent
+    MainComponent,
+    TokenInputComponent
   ],
   imports: [
     BrowserModule,
