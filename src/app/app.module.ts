@@ -12,6 +12,7 @@ import { SvgRefDirective } from './directives/svg-ref.directive';
 import { IconsModule } from "./icons/icons.module";
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MainComponent } from './main/main.component';
 
 
 
@@ -21,7 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
     LoginComponent,
     FaInputComponent,
     InputRefDirective,
-    SvgRefDirective
+    SvgRefDirective,
+    MainComponent
   ],
   imports: [
     BrowserModule,

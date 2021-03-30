@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+
 import { BehaviorSubject } from 'rxjs';
 import { LoginService } from '../data/login.service';
 
@@ -45,21 +46,7 @@ export class LoginComponent implements OnInit {
     }
 
     if(validUsername && validPassword){
-      let resultObservable;
-      resultObservable=this.loginService.authenticate(values.get('username').value,values.get('password').value);
-      resultObservable.subscribe(data=>{
-
-      },error=>{
-        if(error.status=="401"){
-          this.submitResult.next('incorrect');  
-          values.controls['username'].setValue('');
-          values.controls['password'].setValue('');
-        }else{
-          this.submitResult.next('error');
-          values.controls['username'].setValue('');
-          values.controls['password'].setValue('');
-        }
-      });
+      this.loginService.authenticate(values,this.submitResult);
     }else{
       this.submitResult.next('');
       values.controls['username'].setValue('');
