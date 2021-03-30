@@ -2,3 +2,26 @@
 body{
     background-color: #CCCCCC;
 }
+
+span{
+    color: red;
+}
+
+button{
+    color:white;
+    background-color:rgb(165, 164, 164);
+    font-size : 15px;
+}
+
+button:hover{
+    color:white;
+    background-color:midnightblue;
+    font-size : 15px;
+}
+
+input {
+    outline: none;
+    height: 25px;
+    border-radius: 10px;
+    color: midnightblue;
+}

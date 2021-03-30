@@ -1,12 +1,19 @@
-<form [formGroup]="tokenForm" (ngSubmit)="submitTokenForm(tokenForm)">
-    <div *ngIf="$action=='codigo'">Ingresa Codigo de Barras</div>
-    <div *ngIf="$action=='coincidencias'">Ingresa Cualquier Palabra</div><br>
-    <input type="text" formControlName="token">
-    <button type="submit">Buscar</button>
-</form>
+<div class="row justify-content-center align-items-center" style="height: 150px;">
+    <form [formGroup]="tokenForm" (ngSubmit)="submitTokenForm(tokenForm)">
+        <div class="d-flex justify-content-center">
+            <p class="font-weight-bold" *ngIf="$action=='codigo'">Ingresa Codigo de Barras</p>
+            <p class="font-weight-bold" *ngIf="$action=='coincidencias'">Ingresa Cualquier Palabra</p>
+        </div>
+        <input type="text" formControlName="token">
+        <p></p>
+        <div class="d-flex justify-content-center">
+            <button  class="rounded-pill pr-5 pl-5" type="submit">Buscar</button>
+        </div>
+    </form>
+</div>
 <div class="d-flex justify-content-center" *ngIf="submitToken|async as text">
     <span *ngIf="text==='required'">*Campo requerido</span>
     <span *ngIf="text==='invalidCode'">*Codigo invalido</span>
     <span *ngIf="text==='invalidWords'">*Palabras invalidas</span>
 </div>
-<router-outlet></router-outlet> 
+<router-outlet></router-outlet>
