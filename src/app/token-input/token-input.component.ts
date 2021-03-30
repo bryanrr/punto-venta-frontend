@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-token-input',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TokenInputComponent implements OnInit {
 
-  constructor() { }
+  private action:string;
+
+  constructor(private route:ActivatedRoute) { 
+    route.params.subscribe(param=>{this.action=param['action']});
+  }
 
   ngOnInit(): void {
   }
