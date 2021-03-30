@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -15,11 +15,23 @@ export class TokenInputComponent implements OnInit {
   constructor(private route:ActivatedRoute, private fb:FormBuilder) { 
     route.params.subscribe(param=>{this.action=param['action']});
     this.tokenForm=this.fb.group({
-      'token':''
+      'token':['',Validators.compose([Validators.required,this.action=="codigo"?this.codeValidator:this.coincidencesValidator])]
     });
   }
 
   submitTokenForm(values):void{
+  }
+
+  codeValidator(control:FormControl):{[s:string]:boolean}{
+    if(!control.value.trim().match(/^(?=.{2,30}$)(?![ ])[a-zA-Z0-9]+(?<![_.])$/)){
+      return {invalidCode:true};
+    }
+  }
+
+  coincidencesValidator(control:FormControl):{[s:string]:boolean}{
+    if(!control.value.trim().match(/^(?=.{2,50}$)[a-zA-Z0-9 ]+(?<![_.])$/)){
+      return {invalidToken:true};
+    }
   }
 
 	public get $action(): string {
