@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-token-input',
@@ -11,6 +12,7 @@ export class TokenInputComponent implements OnInit {
 
   private action:string;
   tokenForm:FormGroup;
+  submitToken:BehaviorSubject<string>=new BehaviorSubject('');
 
   constructor(private route:ActivatedRoute, private fb:FormBuilder) { 
     route.params.subscribe(param=>{this.action=param['action']});
@@ -20,6 +22,18 @@ export class TokenInputComponent implements OnInit {
   }
 
   submitTokenForm(values):void{
+    let validToken=false;
+    
+    if(values.controls['token'].hasError('required')){
+      this.submitToken.next('required');
+    }else if(values.controls['token'].hasError('invalidCode')){
+      this.submitToken.next('invalidCode');
+    }else if(values.controls['token'].hasError('invalidWords')){
+      this.submitToken.next('invalidWords');
+    } else{
+      this.submitToken.next('');
+      validToken=true;
+    }
   }
 
   codeValidator(control:FormControl):{[s:string]:boolean}{
@@ -30,7 +44,7 @@ export class TokenInputComponent implements OnInit {
 
   coincidencesValidator(control:FormControl):{[s:string]:boolean}{
     if(!control.value.trim().match(/^(?=.{2,50}$)[a-zA-Z0-9 ]+(?<![_.])$/)){
-      return {invalidToken:true};
+      return {invalidWords:true};
     }
   }
 
