@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -14,8 +14,8 @@ export class TokenInputComponent implements OnInit {
   tokenForm:FormGroup;
   submitToken:BehaviorSubject<string>=new BehaviorSubject('');
 
-  constructor(private route:ActivatedRoute, private fb:FormBuilder) { 
-    route.params.subscribe(param=>{this.action=param['action']});
+  constructor(private route:ActivatedRoute, private fb:FormBuilder,private router:Router) { 
+    this.action=this.route.snapshot.url[1].path;
     this.tokenForm=this.fb.group({
       'token':['',Validators.compose([Validators.required,this.action=="codigo"?this.codeValidator:this.coincidencesValidator])]
     });
@@ -33,6 +33,14 @@ export class TokenInputComponent implements OnInit {
     } else{
       this.submitToken.next('');
       validToken=true;
+    }
+
+    if(validToken){
+      if(this.action=="codigo"){
+        this.router.navigate(['./',values.controls['token'].value],{relativeTo:this.route});
+      }else{
+
+      }
     }
   }
 
