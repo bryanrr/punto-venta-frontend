@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ProductosService } from '../data/productos.service';
 import {FormBuilder,FormGroup} from '@angular/forms';
+import * as numeral from 'numeral';
 
 @Component({
   selector: 'app-product-details',
@@ -27,6 +28,14 @@ export class ProductDetailsComponent implements OnInit {
         'precioventa':this.product['precioventa']
       });
     });
+  }
+
+  getPorcentaje(formGroup):string{
+    if(isNaN(formGroup.get('preciocompra').value+1) || isNaN(formGroup.get('precioventa').value+1)){
+      return "ERROR";
+    }else{
+      return numeral((formGroup.get('precioventa').value-formGroup.get('preciocompra').value)/formGroup.get('preciocompra').value).format('0.00%');
+    }
   }
 
   onSubmit(values):void{

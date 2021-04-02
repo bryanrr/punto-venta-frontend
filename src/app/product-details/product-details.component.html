@@ -1,13 +1,15 @@
 <div *ngIf="productObservable|async as producto">
     <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
         <label >Codigo Barras</label>
-        <input type="text" formControlName="codigo"><br>
+        <input type="text" formControlName="codigobarra"><br>
         <label >Descripcion</label>
         <input type="text" formControlName="descripcion"><br>
         <label >Precio Compra</label>
         <input type="text" formControlName="preciocompra"><br>
         <label >Precio Venta</label>
         <input type="text" formControlName="precioventa"><br>
+        <label >Porcentaje</label>
+        <input type="text" value="{{getPorcentaje(myForm)}}">
         <label >Ultima Fecha de Modificacion</label>
         <input type="text" value="{{producto['lastupdatedtime']|date:'fullDate'}}" readonly><br>
         <button type="submit">Guardar Cambios</button>
