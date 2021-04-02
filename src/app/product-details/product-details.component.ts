@@ -15,6 +15,9 @@ export class ProductDetailsComponent implements OnInit {
   productObservable:Subject<Object>=new Subject();
   product:Object;
   myForm:FormGroup;
+  private readonlyCompra:boolean=true;
+  private readonlyVenta:boolean=true;
+  private readonlyDescription:boolean=true;
   
   constructor(private route:ActivatedRoute,private productosService:ProductosService,private fb:FormBuilder) {
     route.params.subscribe(params=>this.codigo=params['code']);
@@ -44,6 +47,30 @@ export class ProductDetailsComponent implements OnInit {
 
 	public get $codigo(): string {
 		return this.codigo;
+	}
+
+	public get $readonlyCompra(): boolean {
+		return this.readonlyCompra;
+	}
+
+	public set $readonlyCompra(value: boolean) {
+		this.readonlyCompra = value;
+	}
+
+	public get $readonlyVenta(): boolean {
+		return this.readonlyVenta;
+	}
+
+	public set $readonlyVenta(value: boolean) {
+		this.readonlyVenta = value;
+	}
+
+	public get $readonlyDescription(): boolean {
+		return this.readonlyDescription;
+	}
+
+	public set $readonlyDescription(value: boolean) {
+		this.readonlyDescription = value;
 	}
 
   ngOnInit(): void {
