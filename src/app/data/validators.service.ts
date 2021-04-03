@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { FormControl} from '@angular/forms';
+import { AbstractControl, FormControl, ValidationErrors} from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
 
 const regexObjects:Object={username:/^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/,
   password:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/,
@@ -13,6 +14,19 @@ const regexObjects:Object={username:/^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-
 export class ValidatorsService {
 
   constructor() { }
+
+  validFormControl(control:AbstractControl,subject:BehaviorSubject<string>):boolean{
+    const controlErrors: ValidationErrors = control.errors;
+
+    if(controlErrors != null){
+      Object.keys(controlErrors).forEach(keyError => {
+        subject.next(keyError);
+      });
+      return false;
+    }else{
+      return true;
+    }
+  }
 
   usernameValidator(control:FormControl):{[s:string]:boolean}{
     let efectiveValue=(control.value+"").trim();

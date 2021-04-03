@@ -1,20 +1,36 @@
 <div *ngIf="productObservable|async as producto">
     <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
         <label >Codigo Barras</label>
-        <input type="text" formControlName="codigobarra" readonly><br>
+        <input type="text" formControlName="codigobarra" readonly>
+        <div *ngIf="barcodeError|async as text">
+            <span *ngIf="text==='required'">*Campo requerido</span>
+            <span *ngIf="text==='invalidCode'">*Caracteres invalidos</span>
+        </div><br>
         <label >Descripcion</label>
         <input type="text" formControlName="descripcion" [readonly]="$readonlyDescription">
-        <bi (click)="$readonlyDescription=false" name="pen-fill"></bi><br>
+        <bi (click)="$readonlyDescription=false" name="pen-fill"></bi>
+        <div *ngIf="descriptionError|async as text">
+            <span *ngIf="text==='required'">*Campo requerido</span>
+            <span *ngIf="text==='invalidWords'">*Caracteres invalidos</span>
+        </div><br>
         <label >Precio Compra</label>
         <input type="text" formControlName="preciocompra" [readonly]="$readonlyCompra">
-        <bi (click)="$readonlyCompra=false" name="pen-fill"></bi><br>
+        <bi (click)="$readonlyCompra=false" name="pen-fill"></bi>
+        <div *ngIf="purchasePriceError|async as text">
+            <span *ngIf="text==='required'">*Campo requerido</span>
+            <span *ngIf="text==='invalidPrice'">*Precio invalido</span>
+        </div><br>
         <label >Precio Venta</label>
         <input type="text" formControlName="precioventa" [readonly]="$readonlyVenta">
-        <bi (click)="$readonlyVenta=false" name="pen-fill"></bi><br>
+        <bi (click)="$readonlyVenta=false" name="pen-fill"></bi>
+        <div *ngIf="sellingPriceError|async as text">
+            <span *ngIf="text==='required'">*Campo requerido</span>
+            <span *ngIf="text==='invalidPrice'">*Precio invalido</span>
+        </div><br>
         <label >Porcentaje</label>
         <input type="text" value="{{getPorcentaje(myForm)}}" readonly><br>
         <label >Ultima Fecha de Modificacion</label>
         <input type="text" value="{{producto['lastupdatedtime']|date:'fullDate'}}" readonly><br>
         <button type="submit">Guardar Cambios</button>
     </form>
-</div>
+</div> 
