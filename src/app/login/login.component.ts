@@ -28,8 +28,8 @@ export class LoginComponent implements OnInit {
   submitUser(values):void{
     let validForm=false;
     
-    validForm=this.validatorService.validFormControl(values.controls["username"],this.usernameError);
-    validForm=this.validatorService.validFormControl(values.controls["password"],this.passwordError);
+    validForm=(this.validatorService.validFormControl(values.controls["username"],this.usernameError) &
+      this.validatorService.validFormControl(values.controls["password"],this.passwordError))==1?true:false;
 
     if(validForm){
       this.loginService.authenticate(values,this.submitResult);

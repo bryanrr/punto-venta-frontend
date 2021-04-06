@@ -15,17 +15,17 @@ export class ValidatorsService {
 
   constructor() { }
 
-  validFormControl(control:AbstractControl,subject:BehaviorSubject<string>):boolean{
+  validFormControl(control:AbstractControl,subject:BehaviorSubject<string>):number{
     const controlErrors: ValidationErrors = control.errors;
 
     if(controlErrors != null){
       Object.keys(controlErrors).forEach(keyError => {
         subject.next(keyError);
       });
-      return false;
+      return 0;
     }else{
       subject.next("");
-      return true;
+      return 1;
     }
   }
 

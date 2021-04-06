@@ -50,10 +50,10 @@ export class ProductDetailsComponent implements OnInit {
   onSubmit(values):void{
       let validForm=false;
 
-      validForm=this.validatorService.validFormControl(values.controls["codigobarra"],this.barcodeError);
-      validForm=this.validatorService.validFormControl(values.controls["descripcion"],this.descriptionError);
-      validForm=this.validatorService.validFormControl(values.controls["preciocompra"],this.purchasePriceError);
-      validForm=this.validatorService.validFormControl(values.controls["precioventa"],this.sellingPriceError);
+      validForm=(this.validatorService.validFormControl(values.controls["codigobarra"],this.barcodeError) &
+        this.validatorService.validFormControl(values.controls["descripcion"],this.descriptionError) &
+        this.validatorService.validFormControl(values.controls["preciocompra"],this.purchasePriceError) &
+        this.validatorService.validFormControl(values.controls["precioventa"],this.sellingPriceError))==1?true:false;
 
       if(validForm){
         this.productosService.updateProduct(values,this.product,this.submitResult);
