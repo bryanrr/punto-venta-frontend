@@ -92,4 +92,12 @@ export class ProductDetailsComponent implements OnInit {
     
   }
 
+  ngOnDestroy():void {
+    this.barcodeError.unsubscribe();
+    this.descriptionError.unsubscribe();
+    this.purchasePriceError.unsubscribe();
+    this.sellingPriceError.unsubscribe();
+    this.productObservable.unsubscribe();
+  }
+
 }
