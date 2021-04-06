@@ -23,6 +23,7 @@ export class ProductDetailsComponent implements OnInit {
   descriptionError:BehaviorSubject<string>=new BehaviorSubject('');
   purchasePriceError:BehaviorSubject<string>=new BehaviorSubject('');
   sellingPriceError:BehaviorSubject<string>=new BehaviorSubject('');
+  submitResult:BehaviorSubject<string>=new BehaviorSubject('');
   
   constructor(private route:ActivatedRoute,private productosService:ProductosService,private fb:FormBuilder,private validatorService:ValidatorsService) {
     route.params.subscribe(params=>this.codigo=params['code']);
@@ -49,13 +50,13 @@ export class ProductDetailsComponent implements OnInit {
   onSubmit(values):void{
       let validForm=false;
 
-      validForm=this.validatorService.validFormControl(this.myForm.controls["codigobarra"],this.barcodeError);
-      validForm=this.validatorService.validFormControl(this.myForm.controls["descripcion"],this.descriptionError);
-      validForm=this.validatorService.validFormControl(this.myForm.controls["preciocompra"],this.purchasePriceError);
-      validForm=this.validatorService.validFormControl(this.myForm.controls["precioventa"],this.sellingPriceError);
+      validForm=this.validatorService.validFormControl(values.controls["codigobarra"],this.barcodeError);
+      validForm=this.validatorService.validFormControl(values.controls["descripcion"],this.descriptionError);
+      validForm=this.validatorService.validFormControl(values.controls["preciocompra"],this.purchasePriceError);
+      validForm=this.validatorService.validFormControl(values.controls["precioventa"],this.sellingPriceError);
 
       if(validForm){
-
+        this.productosService.updateProduct(values,this.product,this.submitResult);
       }
   }
 

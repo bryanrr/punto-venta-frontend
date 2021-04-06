@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -8,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ProductosService {
   
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient:HttpClient,private router:Router) { }
 
   getProductDetails(code:string,producto:Subject<Object>):void{
     this.httpClient.get<string>(environment.apiUrl+'producto/'+code,{responseType:'text' as 'json'})
@@ -17,6 +19,21 @@ export class ProductosService {
       },error=>{
         
       });
+  }
+
+  updateProduct(formGroup:FormGroup,product:Object,submitResult:BehaviorSubject<string>):void{
+    if(formGroup.controls["codigobarra"].value==product["codigobarra"]){
+      if(formGroup.controls["descripcion"].value!=product["descripcion"] || formGroup.controls["preciocompra"].value!=product["preciocompra"] || formGroup.controls["precioventa"].value!=product["precioventa"]){
+        product["descripcion"]=formGroup.controls["descripcion"].value;
+        product["preciocompra"]=formGroup.controls["preciocompra"].value;
+        product["precioventa"]=formGroup.controls["precioventa"].value;
+        this.httpClient.put<Object>(environment.apiUrl+'producto/update', product).subscribe(data=>{
+          this.router.navigate(['/main/buscar/codigo']);
+        },error=>{
+          submitResult.next("error");     
+        });
+      }
+    }
   }
 }
 
