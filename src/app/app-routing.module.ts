@@ -5,7 +5,12 @@ import { LoggedInGuard } from './guards/logged-in.guard';
 import { LoginComponent } from './login/login.component';
 import { MainComponent } from './main/main.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { ProductsCoincidencesComponent } from './products-coincidences/products-coincidences.component';
 import { TokenInputComponent } from './token-input/token-input.component';
+
+const childProductsCoincidencesRoutes:Routes=[
+  {path:':coincidenceString', component: ProductsCoincidencesComponent,canActivate:[LoggedInGuard]}
+];
 
 const childProductDetailsRoutes:Routes=[
   {path:':code', component: ProductDetailsComponent,canActivate:[LoggedInGuard]}
@@ -13,7 +18,7 @@ const childProductDetailsRoutes:Routes=[
 
 const childRoutes:Routes = [
   {path:'buscar/codigo', component: TokenInputComponent,canActivate:[LoggedInGuard],children:childProductDetailsRoutes},
-  {path:'buscar/coincidencias', component: TokenInputComponent,canActivate:[LoggedInGuard]}
+  {path:'buscar/coincidencias', component: TokenInputComponent,canActivate:[LoggedInGuard],children:childProductsCoincidencesRoutes}
 ];
 
 const routes: Routes = [

@@ -39,10 +39,10 @@ export class TokenInputComponent implements OnInit {
     if(validToken){
       if(this.action=="codigo"){
         this.router.navigate(['./',values.controls['token'].value],{relativeTo:this.route});
-        values.controls['token'].setValue("");
       }else{
-
+        this.router.navigate(['./',values.controls['token'].value],{relativeTo:this.route});
       }
+      values.controls['token'].setValue("");
     }
   }
 

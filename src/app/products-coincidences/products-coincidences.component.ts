@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-products-coincidences',
@@ -7,7 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductsCoincidencesComponent implements OnInit {
 
-  constructor() { }
+  private coincidenceString:string;
+
+  constructor(private route:ActivatedRoute) {
+    route.params.subscribe(params=>this.coincidenceString=params['coincidenceString']);
+  }
+
+	public get $coincidenceString(): string {
+		return this.coincidenceString;
+	}
+
 
   ngOnInit(): void {
   }
