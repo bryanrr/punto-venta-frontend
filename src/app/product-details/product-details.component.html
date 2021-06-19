@@ -1,0 +1,96 @@
+<div class="row justify-content-center align-items-center" style="height: 500px;" *ngIf="productObservable|async as producto"> 
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+        <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-3">
+                <p class="font-weight-bold" >Codigo Barras</p>
+            </div>
+            <div class="col-auto">
+                <input type="text" formControlName="codigobarra" readonly>
+            </div>
+            <div class="col-1">
+                <div class="messageError" *ngIf="barcodeError|async as text">
+                    <span *ngIf="text==='required'">*Campo requerido</span>
+                    <span *ngIf="text==='invalidCode'">*Caracteres invalidos</span>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row justify-content-center">
+            <div class="col-sm-3">
+                <p class="font-weight-bold" >Descripcion</p>
+            </div>
+            <div class="col-auto">
+                <input type="text" formControlName="descripcion" [readonly]="$readonlyDescription">
+            </div>
+            <div class="col-1">
+                <bi (click)="$readonlyDescription=false" name="pen-fill"></bi>
+            </div>
+        </div>
+        <div class="row">
+            <div class="messageError col d-flex justify-content-center" *ngIf="descriptionError|async as text">
+                <span *ngIf="text==='required'">*Campo requerido</span>
+                <span *ngIf="text==='invalidWords'">*Caracteres invalidos</span>
+            </div>
+        </div>
+        <br>
+        <div class="row justify-content-center">
+            <div class="col-sm-3">
+                <p class="font-weight-bold" >Precio Compra</p>
+            </div>
+            <div class="col-auto">
+                <input type="text" formControlName="preciocompra" [readonly]="$readonlyCompra">
+            </div>
+            <div class="col-1">
+                <bi (click)="$readonlyCompra=false" name="pen-fill"></bi>
+            </div>
+        </div>
+        <div class="row">
+            <div class="messageError col d-flex justify-content-center" *ngIf="purchasePriceError|async as text">
+                <span *ngIf="text==='required'">*Campo requerido</span>
+                <span *ngIf="text==='invalidPrice'">*Precio invalido</span>
+            </div>
+        </div>
+        <br>
+        <div class="row justify-content-center">
+            <div class="col-sm-3">
+                <p class="font-weight-bold" >Precio Venta</p>
+            </div>
+            <div class="col-auto">
+                <input type="text" formControlName="precioventa" [readonly]="$readonlyVenta">
+            </div>
+            <div class="col-1">
+                <bi (click)="$readonlyVenta=false" name="pen-fill"></bi>        
+            </div>
+        </div>
+        <div class="row">
+            <div class="messageError col d-flex justify-content-center"  *ngIf="sellingPriceError|async as text">
+                <span *ngIf="text==='required'">*Campo requerido</span>
+                <span *ngIf="text==='invalidPrice'">*Precio invalido</span>
+            </div>
+        </div>
+        <br>
+        <div class="row justify-content-center">
+            <div class="col-sm-3">
+                <p class="font-weight-bold" >Porcentaje</p>
+            </div>
+            <div class="col-auto">
+                <input type="text" value="{{getPorcentaje(myForm)}}" readonly>
+            </div>
+        </div>
+        <br>
+        <div class="row justify-content-center">
+            <div class="col-sm-3">
+                <p class="font-weight-bold" >Fecha Modificacion</p>
+            </div>
+            <div class="col-auto">
+                <input type="text" value="{{producto['lastupdatedtime']|date:'fullDate'}}" readonly><br>
+            </div>
+        </div>
+        <br>
+        <div class="row justify-content-center">
+            <button class="rounded-pill pr-5 pl-5" type="submit">Guardar Cambios</button>
+        </div>
+        </div>
+    </form>
+</div> 
