@@ -1,3 +1,21 @@
 <div class="d-flex justify-content-center">
     <p class="font-weight-bold">Coincidencias para "{{$coincidenceString}}"</p>
 </div>
+<table>
+    <thead>
+        <tr>
+            <th>Codigo</th>
+            <th>Descripcion</th>
+            <th>Compra</th>
+            <th>Venta</th>
+        </tr>
+    </thead>
+    <tbody *ngFor="let product of productosObservable | async">
+        <tr>
+            <td>{{product.codigobarra}}</td>
+            <td>{{product.descripcion}}</td>
+            <td>{{product.preciocompra}}</td>
+            <td>{{product.precioventa}}</td>
+        </tr>
+    </tbody>
+</table>
