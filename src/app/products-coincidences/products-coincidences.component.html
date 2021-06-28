@@ -12,7 +12,7 @@
     </thead>
     <tbody *ngFor="let product of productosObservable | async">
         <tr>
-            <td>{{product.codigobarra}}</td>
+            <td><a class="nav-link" [routerLink]="['../../../buscar/codigo/'+product.codigobarra]">{{product.codigobarra}}</a></td>
             <td>{{product.descripcion}}</td>
             <td>{{product.preciocompra}}</td>
             <td>{{product.precioventa}}</td>
