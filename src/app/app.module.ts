@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MainComponent } from './main/main.component';
 import { TokenInputComponent } from './token-input/token-input.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { ProductsCoincidencesComponent } from './products-coincidences/products-coincidences.component';
 
 
 
@@ -27,7 +28,8 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
     SvgRefDirective,
     MainComponent,
     TokenInputComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    ProductsCoincidencesComponent
   ],
   imports: [
     BrowserModule,

@@ -35,6 +35,15 @@ export class ProductosService {
       }
     }
   }
+
+  getProductsCoincidences(coincidencesString:string,productos:Subject<Object>):void{
+    this.httpClient.get<string>(environment.apiUrl+'productos/'+coincidencesString,{responseType:'text' as 'json'})
+      .subscribe(data=>{
+        productos.next(JSON.parse(data));
+      },error=>{
+        
+      });
+  }
 }
 
 
