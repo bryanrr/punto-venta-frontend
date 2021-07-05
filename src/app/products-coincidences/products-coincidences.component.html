@@ -1,13 +1,14 @@
 <div class="d-flex justify-content-center">
     <p class="font-weight-bold">Coincidencias para "{{$coincidenceString}}"</p>
 </div>
-<table>
+<table class="table table-striped table-hover">
     <thead>
         <tr>
             <th>Codigo</th>
             <th>Descripcion</th>
             <th>Compra</th>
             <th>Venta</th>
+            <th>Existencia</th>
         </tr>
     </thead>
     <tbody *ngFor="let product of productosObservable | async">
@@ -16,6 +17,7 @@
             <td>{{product.descripcion}}</td>
             <td>{{product.preciocompra}}</td>
             <td>{{product.precioventa}}</td>
+            <td>{{product.existencia}}</td>
         </tr>
     </tbody>
 </table>
