@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { MainComponent } from './main/main.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductsCoincidencesComponent } from './products-coincidences/products-coincidences.component';
+import { SoldPiecesComponent } from './sold-pieces/sold-pieces.component';
 import { TokenInputComponent } from './token-input/token-input.component';
 
 const childProductsCoincidencesRoutes:Routes=[
@@ -18,7 +19,8 @@ const childProductDetailsRoutes:Routes=[
 
 const childRoutes:Routes = [
   {path:'buscar/codigo', component: TokenInputComponent,canActivate:[LoggedInGuard],children:childProductDetailsRoutes},
-  {path:'buscar/coincidencias', component: TokenInputComponent,canActivate:[LoggedInGuard],children:childProductsCoincidencesRoutes}
+  {path:'buscar/coincidencias', component: TokenInputComponent,canActivate:[LoggedInGuard],children:childProductsCoincidencesRoutes},
+  {path:'vendido', component: SoldPiecesComponent,canActivate:[LoggedInGuard]}
 ];
 
 const routes: Routes = [

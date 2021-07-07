@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-sold-pieces',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SoldPiecesComponent implements OnInit {
 
+  soldPiecesForm:FormGroup;
+
   constructor() { }
 
+  onSubmit(values):void{
+
+  }  
+
   ngOnInit(): void {
+    
   }
 
 }
