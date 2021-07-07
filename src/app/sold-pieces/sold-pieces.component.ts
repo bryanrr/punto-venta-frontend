@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
+import { ValidatorsService } from '../data/validators.service';
 
 @Component({
   selector: 'app-sold-pieces',
@@ -9,16 +11,28 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class SoldPiecesComponent implements OnInit {
 
   soldPiecesForm:FormGroup;
+  barcodeError:BehaviorSubject<string>=new BehaviorSubject('');
+  fechaInicioError:BehaviorSubject<string>=new BehaviorSubject('');
+  fechaFinError:BehaviorSubject<string>=new BehaviorSubject('');
 
-  constructor(private fb:FormBuilder) {
+  constructor(private fb:FormBuilder,private validatorService:ValidatorsService) {
     this.soldPiecesForm=this.fb.group({
-      'codigobarra':'',
-      'fechaInicio':'',
-      'fechaFin':''
+      'codigobarra':['',Validators.compose([Validators.required,validatorService.barcodeValidator])],
+      'fechaInicio':['',Validators.required],
+      'fechaFin':['',Validators.required]
     });
   }
 
   onSubmit(values):void{
+    let validForm=false;
+
+    validForm=(this.validatorService.validFormControl(values.controls["codigobarra"],this.barcodeError) &
+        this.validatorService.validFormControl(values.controls["fechaInicio"],this.fechaInicioError) &
+        this.validatorService.validFormControl(values.controls["fechaFin"],this.fechaFinError))==1?true:false;
+
+    if(validForm){
+      
+    }
     
   }  
 

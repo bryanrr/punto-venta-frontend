@@ -1,10 +1,20 @@
 <form [formGroup]="soldPiecesForm" (ngSubmit)="onSubmit(soldPiecesForm)">
     <label>Codigo Barra</label>
     <input type="text" formControlName="codigobarra">
+    <div class="messageError" *ngIf="barcodeError|async as text">
+        <span *ngIf="text==='required'">*Campo requerido</span>
+        <span *ngIf="text==='invalidCode'">*Caracteres invalidos</span>
+    </div>
     <label for="inicio">Fecha Inicio</label>
     <input type="date" formControlName="fechaInicio" id="inicio">
+    <div class="messageError" *ngIf="fechaInicioError|async as text">
+        <span *ngIf="text==='required'">*Campo requerido</span>
+    </div>
     <label for="fin">Fecha Fin</label>
     <input type="date" formControlName="fechaFin" id="fin">
+    <div class="messageError" *ngIf="fechaFinError|async as text">
+        <span *ngIf="text==='required'">*Campo requerido</span>
+    </div>
     <button class="rounded-pill pr-5 pl-5" type="submit">Buscar</button>
 </form>
 
