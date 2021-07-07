@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-sold-pieces',
@@ -10,10 +10,16 @@ export class SoldPiecesComponent implements OnInit {
 
   soldPiecesForm:FormGroup;
 
-  constructor() { }
+  constructor(private fb:FormBuilder) {
+    this.soldPiecesForm=this.fb.group({
+      'codigobarra':'',
+      'fechaInicio':'',
+      'fechaFin':''
+    });
+  }
 
   onSubmit(values):void{
-
+    
   }  
 
   ngOnInit(): void {

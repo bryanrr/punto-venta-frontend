@@ -1,3 +1,10 @@
 <form [formGroup]="soldPiecesForm" (ngSubmit)="onSubmit(soldPiecesForm)">
+    <label>Codigo Barra</label>
+    <input type="text" formControlName="codigobarra">
+    <label for="inicio">Fecha Inicio</label>
+    <input type="date" formControlName="fechaInicio" id="inicio">
+    <label for="fin">Fecha Fin</label>
+    <input type="date" formControlName="fechaFin" id="fin">
+    <button class="rounded-pill pr-5 pl-5" type="submit">Buscar</button>
 </form>
 
