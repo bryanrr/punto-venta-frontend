@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -43,6 +43,16 @@ export class ProductosService {
       },error=>{
         
       });
+  }
+
+  getProductSoldPeriodObservable(codigobarra:string,fechainicio:string,fechafin:string):Observable<string>{
+    let request:any={
+      "codigobarra": codigobarra,
+      "fechainicio": fechainicio,
+      "fechafin": fechafin
+    };
+
+    return this.httpClient.post<string>(environment.apiUrl+'producto/sold',request,{responseType:'text' as 'json'});
   }
 }
 
