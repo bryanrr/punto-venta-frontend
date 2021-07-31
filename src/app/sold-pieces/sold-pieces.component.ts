@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { ProductosService } from '../data/productos.service';
@@ -9,12 +9,15 @@ import { ValidatorsService } from '../data/validators.service';
   templateUrl: './sold-pieces.component.html',
   styleUrls: ['./sold-pieces.component.css']
 })
-export class SoldPiecesComponent implements OnInit {
-
+export class SoldPiecesComponent implements OnInit,OnDestroy {
+  codigobarra:string;
+  descripcion:string;
+  events:number;
   soldPiecesForm:FormGroup;
   barcodeError:BehaviorSubject<string>=new BehaviorSubject('');
   fechaInicioError:BehaviorSubject<string>=new BehaviorSubject('');
   fechaFinError:BehaviorSubject<string>=new BehaviorSubject('');
+  productSoldPeriod:Subject<Object>=new Subject();
   
   constructor(private fb:FormBuilder,private validatorService:ValidatorsService,private productosService:ProductosService) {
     this.soldPiecesForm=this.fb.group({
@@ -23,7 +26,7 @@ export class SoldPiecesComponent implements OnInit {
       'fechaFin':['',Validators.required]
     });
   }
-
+  
   onSubmit(values):void{
     let validForm=false;
 
@@ -34,7 +37,18 @@ export class SoldPiecesComponent implements OnInit {
     if(validForm){
       this.productosService.getProductSoldPeriodObservable(values.controls["codigobarra"].value,values.controls["fechaInicio"].value,values.controls["fechaFin"].value)
       .subscribe(data=>{
-        
+        let JSONData=JSON.parse(data);
+
+        if(JSONData["codigobarra"]!==null){
+          this.codigobarra=JSONData["codigobarra"];
+          this.descripcion=JSONData["descripcion"];
+          this.events=JSONData["productsoldperiod"].length;
+          this.productSoldPeriod.next(JSONData["productsoldperiod"]);
+        }else{
+          this.codigobarra=values.controls["codigobarra"].value;
+          this.descripcion='';
+          this.productSoldPeriod.next([]);
+        }
       },error=>{
         
       });
@@ -44,6 +58,13 @@ export class SoldPiecesComponent implements OnInit {
 
   ngOnInit(): void {
     
+  }
+
+  ngOnDestroy(): void {
+    this.productSoldPeriod.unsubscribe();
+    this.barcodeError.unsubscribe();
+    this.fechaInicioError.unsubscribe();
+    this.fechaFinError.unsubscribe();
   }
 
 }
