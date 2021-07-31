@@ -43,7 +43,10 @@ export class SoldPiecesComponent implements OnInit,OnDestroy {
           this.codigobarra=JSONData["codigobarra"];
           this.descripcion=JSONData["descripcion"];
           this.events=JSONData["productsoldperiod"].length;
-          this.productSoldPeriod.next(JSONData["productsoldperiod"]);
+          
+          let productSoldArray=JSONData["productsoldperiod"];
+          productSoldArray.sort(this.compareDate);
+          this.productSoldPeriod.next(productSoldArray);
         }else{
           this.codigobarra=values.controls["codigobarra"].value;
           this.descripcion='';
@@ -54,6 +57,13 @@ export class SoldPiecesComponent implements OnInit,OnDestroy {
       });
     }
   
+  }
+
+  compareDate(object1:Object,object2:Object):number{
+    let fecha1=new Date(object1["fechacompra"]);
+    let fecha2=new Date(object2["fechacompra"]);
+
+    return fecha1.getTime()-fecha2.getTime();
   }
 
   ngOnInit(): void {
