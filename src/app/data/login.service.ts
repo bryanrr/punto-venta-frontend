@@ -35,6 +35,11 @@ export class LoginService {
         }
       });
   }
+
+  logout():Observable<Object>{
+    this.isLoggedIn=false;
+    return this.httpClient.post<string>(environment.apiUrl + 'logout', { responseType: 'text' as 'json' });    
+  }
   
 	public get $isLoggedIn(): boolean {
 		return this.isLoggedIn;

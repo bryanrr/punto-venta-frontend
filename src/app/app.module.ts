@@ -11,12 +11,14 @@ import { InputRefDirective } from './directives/input-ref.directive';
 import { SvgRefDirective } from './directives/svg-ref.directive';
 import { IconsModule } from "./icons/icons.module";
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MainComponent } from './main/main.component';
 import { TokenInputComponent } from './token-input/token-input.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductsCoincidencesComponent } from './products-coincidences/products-coincidences.component';
 import { SoldPiecesComponent } from './sold-pieces/sold-pieces.component';
+import { LogoutComponent } from './logout/logout.component';
+import { AutoLogoutInterceptorService } from './data/auto-logout-interceptor.service';
 
 
 
@@ -31,7 +33,8 @@ import { SoldPiecesComponent } from './sold-pieces/sold-pieces.component';
     TokenInputComponent,
     ProductDetailsComponent,
     ProductsCoincidencesComponent,
-    SoldPiecesComponent
+    SoldPiecesComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,7 @@ import { SoldPiecesComponent } from './sold-pieces/sold-pieces.component';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [{provide:HTTP_INTERCEPTORS,useClass:AutoLogoutInterceptorService,multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
