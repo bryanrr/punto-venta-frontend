@@ -17,6 +17,7 @@ import { TokenInputComponent } from './token-input/token-input.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductsCoincidencesComponent } from './products-coincidences/products-coincidences.component';
 import { SoldPiecesComponent } from './sold-pieces/sold-pieces.component';
+import { LogoutComponent } from './logout/logout.component';
 
 
 
@@ -31,7 +32,8 @@ import { SoldPiecesComponent } from './sold-pieces/sold-pieces.component';
     TokenInputComponent,
     ProductDetailsComponent,
     ProductsCoincidencesComponent,
-    SoldPiecesComponent
+    SoldPiecesComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
